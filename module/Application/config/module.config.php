@@ -20,6 +20,20 @@ return array(
                     ),
                 ),
             ),
+            'album' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/album[/][:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Album\Controller\Album',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
@@ -73,7 +87,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Album\Controller\Album' => 'Album\Controller\Album\Controller',
         ),
     ),
     'view_manager' => array(
@@ -89,7 +104,8 @@ return array(
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),
         'template_path_stack' => array(
-            __DIR__ . '/../view',
+            //__DIR__ . '/../view',
+            'album' => __DIR__ . '/../view',
         ),
     ),
     // Placeholder for console routes
