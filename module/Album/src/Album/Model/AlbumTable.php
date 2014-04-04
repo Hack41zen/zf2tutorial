@@ -13,7 +13,7 @@ class AlbumTable
     
     public function fetchAll()
     {
-        $resultSet - $this->tableGateway->select();
+        $resultSet = $this->tableGateway->select();
         return $resultSet;
     }
     
@@ -35,7 +35,7 @@ class AlbumTable
             'title'  => $album->title,
         );
         
-        $id = (int) $album->id;
+        $id = (int)$album->id;
         if ($id == 0) {
             $this->tableGateway->insert($data);
         } else {
@@ -49,7 +49,7 @@ class AlbumTable
     
     public function  deleteAlbum($id)
     {
-        $this->tableGateway->delete(array('id' => (int) $id));
+        $this->tableGateway->delete(array('id' => $id));
     }
 }
 

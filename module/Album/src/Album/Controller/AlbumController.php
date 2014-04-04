@@ -4,10 +4,9 @@ namespace Album\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class AlbumController extends \Zend\Mvc\Controller\AbstractActionController
+class AlbumController extends AbstractActionController
 {
     protected $albumTable;
-
 
     public function indexAction()
     {
