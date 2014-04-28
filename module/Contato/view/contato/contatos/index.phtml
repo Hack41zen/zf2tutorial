@@ -1,5 +1,5 @@
 <div class="topo-table">
-    <a class="btn btn-success" title="Novo"><span class="glyphicon glyphicon-plus"></span></a>
+    <a href="<?= $this->url('contatos', array('action' => 'novo')); ?>" class="btn btn-success" title="Novo"><span class="glyphicon glyphicon-plus"></span></a>
 
     <div class="btn-group" title="Quantidades por Página">
         <button type="button" class="btn btn-default">005</button>
@@ -48,9 +48,9 @@
                     <td class="text-center">2</td>
                     <td><?php echo $this->dateFormat(new DateTime(), IntlDateFormatter::SHORT); ?></td>
                     <td>
-                        <a class="btn btn-xs btn-info" title="Visualizar" href=""><span class="glyphicon glyphicon-new-window"></span></a>
-                        <a class="btn btn-xs btn-warning" title="Editar" href=""><span class="glyphicon glyphicon-edit"></span></a>
-                        <a class="btn btn-xs btn-danger" title="Deletar" href=""><span class="glyphicon glyphicon-floppy-remove"></span></a>
+                        <a class="btn btn-xs btn-info" title="Visualizar" href="<?= $this->url('contatos', array('action' => 'detalhes', 'id' => $i,)); ?>"><span class="glyphicon glyphicon-new-window"></span></a>
+                        <a class="btn btn-xs btn-warning" title="Editar" href="<?= $this->url('contatos', array('action' => 'editar', 'id' => $i,)); ?>"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a class="btn btn-xs btn-danger" title="Deletar" href="<?= $this->url('contatos', array('action' => 'deletar', 'id' => $i,)); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>
                     </td>
                 </tr>
             <?php endfor; ?>
@@ -66,3 +66,23 @@
         <li><a href="#">Próximo</a></li>
     </ul>
 </div>
+
+<?php $this->headScript()->captureStart(); ?>
+$(function() {
+    // variável contendo a url deletar
+    var url_deletar = '<?= $this->url('contatos', array('action' => 'deletar')); ?>' + '/';
+    // qualquer link que conter a url deletar vai sofrer um evento ao ser clicada
+    $("a[href*='" + url_deletar + "']").click(function(event) {
+        // variável contendo o id referente ao botão clicado
+        var contato_id = $(this).attr('href').split(url_deletar).pop();
+        // variável contendo a mensagem da janela
+        var mensagem = "Deseja realmente apagar o contato de ID " + contato_id + "?";
+        // variável com resposta da mensagem colocada na janela
+        var confirmacao = confirm(mensagem);
+        
+        if (! confirmacao) {
+            event.preventDefault();
+        }
+    });
+});
+<?php $this->headScript()->captureEnd(); ?>
